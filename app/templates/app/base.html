@@ -159,6 +159,24 @@
                                     👋 Xin chào <strong>{{ request.user.username }}</strong>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
+
+                                {% if request.user.is_staff %}
+
+                                <li>
+                                    <a class="dropdown-item text-primary fw-bold" href="{% url 'admin_dashboard' %}">
+                                        <i class="bi bi-graph-up-arrow me-2"></i> Thống kê báo cáo
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <a class="dropdown-item text-secondary" href="/admin/" target="_blank">
+                                        <i class="bi bi-gear-fill me-2"></i> Quản trị hệ thống
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                {% endif %}
+
                                 <li>
                                     <a class="dropdown-item" href="{% url 'user_orders' %}">
                                         <i class="bi bi-box-seam me-2"></i> Đơn hàng của tôi

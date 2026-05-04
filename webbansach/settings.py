@@ -34,6 +34,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,25 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'app',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Quản Trị Nhà Sách",
+    "site_header": "BookStore Admin",
+    "site_logo": "app/images/logostore.png", 
+    "welcome_sign": "Chào mừng bạn đến với hệ thống quản lý nhà sách",
+    "copyright": "BookStore Ltd",
+    "search_model": ["auth.User", "app.Product"],
+    "topmenu_links": [
+        {"name": "Trang chủ", "url": "home", "permissions": ["auth.view_user"]},
+    ],
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly", 
+    "dark_mode_theme": None,
+    "navbar": "navbar-success navbar-dark", 
+    "accent": "accent-primary",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

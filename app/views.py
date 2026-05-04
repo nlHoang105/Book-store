@@ -11,14 +11,36 @@ from .form import RegisterForm
 from django.core.cache import cache
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate,login,logout
+from django.db.models import Sum
 from django.contrib import messages
 from rapidfuzz import process,fuzz
 from dotenv import load_dotenv
 from django import template
 from django.views.decorators.http import require_POST
 
+@staff_member_required
+def admin_dashboard(request):
 
+    total_revenue = Order.objects.filter(complete=True).aggregate(Sum('total_price'))['total_price__sum'] or 0
+
+
+    total_orders = Order.objects.filter(complete=True).count()
+
+
+    top_products = Product.objects.order_by('-sold')[:5]
+
+
+    recent_orders = Order.objects.order_by('-date_order')[:10]
+
+    context = {
+        'total_revenue': total_revenue,
+        'total_orders': total_orders,
+        'top_products': top_products,
+        'recent_orders': recent_orders,
+    }
+    return render(request, 'app/admin_dashboard.html', context)
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
